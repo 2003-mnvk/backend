@@ -15,6 +15,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const indexRouter = require("./routes/index");
 const userRouter = require("./routes/user");
 const psychoRouter = require("./routes/psycho");
+const skillMappingRouter = require("./routes/skillMapping");
 // const jobRouter = require("./routes/job");
 
 app.use(incomingRequestLogger); // Apply request logger middleware
@@ -23,7 +24,8 @@ app.use(incomingRequestLogger); // Apply request logger middleware
 app.use("/api/v1", indexRouter);
 app.use("/api/v1/user", userRouter);
 app.use("/api/v1/psycho", psychoRouter);
-// app.use("/api/v1/job", jobRouter);
+app.use("/api/v1/skill-mapping", skillMappingRouter);
+
 
 // Start the server and connect to MongoDB
 const startServer = async () => {
