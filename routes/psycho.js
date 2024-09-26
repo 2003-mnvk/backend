@@ -3,7 +3,6 @@ const router = express.Router();
 const { Psycho } = require("../schema/psychometric.schema");
 const Joi = require("joi");
 
-// Joi validation schema with range validation
 const psychometricSchema = Joi.object({
   focus: Joi.number().min(1).max(10).required(),
   challenge: Joi.number().min(1).max(10).required(),
@@ -17,7 +16,6 @@ const psychometricSchema = Joi.object({
   curiosity: Joi.number().min(1).max(10).required(),
 });
 
-// POST route to create a new psychometric entry
 router.post("/create", async (req, res) => {
   try {
     // Validate request body using Joi
@@ -26,7 +24,6 @@ router.post("/create", async (req, res) => {
       return res.status(400).json({ message: error.details[0].message });
     }
 
-    // Destructure the validated values
     const {
       focus,
       challenge,
@@ -40,7 +37,6 @@ router.post("/create", async (req, res) => {
       curiosity,
     } = value;
 
-    // Create a new psychometric entry
     const newPsycho = new Psycho({
       focus,
       challenge,
@@ -54,13 +50,10 @@ router.post("/create", async (req, res) => {
       curiosity,
     });
 
-    // Save the entry to the database
     const savedPsycho = await newPsycho.save();
 
-    // Send a response with the saved entry
     res.status(201).json(savedPsycho);
   } catch (e) {
-    // Handle server errors
     res
       .status(500)
       .json({ message: "Internal Server Error", error: e.message });
